@@ -1,0 +1,68 @@
+/* 统一全局样式 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* 背景铺满 */
+    background-position: center; /* 背景居中 */
+    z-index: -1; /* 设置为底层 */
+}
+
+.button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 80%;
+    height: 20%;
+    z-index: 1; /* 确保按钮容器在背景之上 */
+}
+
+.btn {
+    flex: 1 1 calc(33.333% - 20px); /* 根据容器宽度自适应 */
+    margin: 10px;
+    font-size: 20px; /* 按钮文字大小 */
+    padding: 20px; /* 按钮内边距 */
+    border: none;
+    border-radius: 10px; /* 按钮圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.5s; /* 背景颜色渐变效果 */
+}
+
+/* 按钮状态样式 */
+.btn.blue {
+    background-color: blue; /* 蓝色背景 */
+    color: white; /* 白色文字 */
+}
+
+.btn.gray {
+    background-color: gray; /* 灰色背景 */
+    color: white; /* 白色文字 */
+}
+
+.image-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* 默认隐藏图片容器 */
+    z-index: 2; /* 确保图片在按钮之上 */
+}
+
+.image-container img {
+    width: 300px; /* 图片默认宽度 */
+    height: auto; /* 高度自适应 */
+}
