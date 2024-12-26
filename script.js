@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     class Button {
         constructor(id, name, type, container, position = { top: '0%', left: '0%' }, size = { width: '20px', height: 'auto' }, buttongroup = null) {
-            this.button = document.createElement('button');
+            this.button = document.getElementById(id);
             this.button.className = 'btn';
             this.button.id = id;
             this.name = name;
@@ -135,16 +135,49 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // 创建按钮实例
-    new Button('btn1', '1', 'toggle', buttonContainer, { top: '20%', left: '30%' });
-    new Button('btn2', '2', 'tempBlue', buttonContainer, { top: '40%', left: '30%' });
-
-    const exclusiveButtons = ['btn3', 'btn4', 'btn5'];
-    exclusiveButtons.forEach((id, index) => {
-        new Button(id, id, 'clusive', buttonContainer, {
-            top: `${60 + index * 20}%`,
-            left: '30%'
-        }, { width: '20px', height: 'auto' }, exclusiveButtons);
+    const buttons = [
+        { id: 'btn1', name: '1', type: 'toggle', position: { top: '20%', left: '30%' } },
+        { id: 'btn2', name: '2', type: 'tempBlue', position: { top: '40%', left: '30%' } },
+        { id: 'btn3', name: '3', type: 'clusive', position: { top: '60%', left: '30%' }, buttongroup: ['btn3', 'btn4', 'btn5'] },
+        { id: 'btn4', name: '4', type: 'clusive', position: { top: '80%', left: '30%' }, buttongroup: ['btn3', 'btn4', 'btn5'] },
+        { id: 'btn5', name: '5', type: 'clusive', position: { top: '100%', left: '30%' }, buttongroup: ['btn3', 'btn4', 'btn5'] },
+        { id: 'btn6', name: '6', type: 'showImage', position: { top: '60%', left: '60%' } }
+    ];
+    buttons.forEach(buttonConfig => {
+        new Button(
+            buttonConfig.id,
+            buttonConfig.name,
+            buttonConfig.type,
+            buttonContainer,
+            buttonConfig.position,
+            { width: '80px', height: 'auto' },
+            buttonConfig.buttongroup
+        );
     });
+    
+    function calculateScale() {
+        // 获取页面尺寸
+        var Width = window.innerWidth;
+        var Height = window.innerHeight;
 
-    new Button('btn6', '6', 'showImage', buttonContainer, { top: '60%', left: '60%' });
+        // 假设您已经知道了图片的原始尺寸，或者您可以从其他地方获取它们
+        var imageWidth = 2560; // 示例图片宽度
+        var imageHeight = 1515; // 示例图片高度
+
+        // 如果需要动态获取图片尺寸，可以使用之前提到的Image对象方法
+
+        // 计算缩放比例
+        var scaleX = Width / imageWidth;
+        var scaleY = Height / imageHeight;
+        var scale = Math.min(scaleX, scaleY); // 取较小的比例
+
+        // 显示缩放比例
+        document.getElementById('scaleOutput').textContent = '当前缩放比例: ' + scale.toFixed(2) +'页面宽' + Width + '高' + Height;
+    }
+
+    // 初始计算缩放比例
+    calculateScale();
+
+    // 添加窗口大小调整事件监听器以实时更新缩放比例
+    window.addEventListener('resize', calculateScale);
 });
